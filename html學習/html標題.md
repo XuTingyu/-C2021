@@ -33,7 +33,7 @@ HTML標題是使用<h1>to<h6>標記定義的。
 ```
 # 更大的標題
 ```
-每個HTML標題都有一個默認大小。但是，可以style使用CSSfont-size屬性使用屬性指定任何標題的大小：
+每個HTML標題都有一個默認大小。但是，可以style使用 CSSfont-size 屬性使用屬性指定任何標題的大小：
 
 例子
 <h1 style="font-size:60px;">Heading 1</h1>
