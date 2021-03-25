@@ -15,4 +15,13 @@ for i in range(1,11):
 print("1+2+...+10 = " + str(sum))
 
 ```
+# sum.py
+```
+a = 12
+b = 34
+sum = a + b
+print("總和 = " + str(sum))
+---
+總和 = 46
+```
 
