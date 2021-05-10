@@ -1,7 +1,7 @@
 
-## ch01
+# ch01
 ---
-# loop.py
+## loop.py
 ```
 loop.py
 sum = 0
@@ -15,15 +15,16 @@ for i in range(1,11):
 print("1+2+...+10 = " + str(sum))
 
 ```
-# sum.py
+## sum.py
 ```
 a = 12
 b = 34
 sum = a + b
 print("總和 = " + str(sum))
 ```
-## ch02
-# discount.py
+# ch02
+---
+## discount.py
 ```
 money = int(input("請輸入購物金額："))
 if(money >= 10000):
@@ -38,7 +39,7 @@ if(money >= 10000):
 else:
     print(money, end=" 元\n")  #未打折
 ```
-# format.py
+## format.py
 ```
 print("姓名   座號  國文  數學  英文")
 print("%3s  %2d   %3d   %3d  %3d" % ("林大明", 1, 100, 87, 79))
@@ -46,7 +47,7 @@ print("%3s  %2d   %3d   %3d  %3d" % ("陳阿中", 2, 74, 88, 100))
 print("%3s  %2d   %3d   %3d  %3d" % ("張小英", 11, 82, 65, 8))
 
 ```
-# grade.py
+## grade.py
 ```
 score = int(input("請輸入成績："))
 if(score) >= 90:
@@ -60,13 +61,13 @@ elif(score) >= 60:
 else:
     print("丁等")
 ```
-# password1.py
+## password1.py
 ```
 pw = input("請輸入密碼：")
 if(pw=="1234"):
     print("歡迎光臨！")
 ```
-# password2.py
+## password2.py
 ```
 pw = input("請輸入密碼：")
 if(pw=="1234"):
@@ -74,7 +75,7 @@ if(pw=="1234"):
 else:
     print("密碼錯誤！")
 ```
-# score.py
+## score.py
 ```
 nat = input("請輸入國文成績：")
 math = input("請輸入數學成績：")
@@ -84,8 +85,8 @@ average = sum / 3
 print("成績總分：%d，平均成績：%5.2f" % (sum, average))
 ```
 # ch03
-
-# append1.py
+---
+## append1.py
 ```
 score = []
 total = inscore = 0
