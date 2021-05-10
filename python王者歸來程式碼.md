@@ -99,6 +99,105 @@ for i in range(0, len(score) - 1):
 average = total / (len(score) - 1)
 print("本班總成績：%d 分，平均成績：%5.2f 分" % (total, average))
 ```
+## floor.py
+```
+n = int(input("請輸入大樓的樓層數："))
+print("本大樓具有的樓層為：")
+if(n > 3):
+    n += 1
+for i in range(1, n+1):
+    if(i==4):
+        continue
+    print(i, end=" ")
+print()
+```
+## list1.py
+```
+score = [85, 79, 93]
+print("國文成績：%d 分" % score[0])
+print("數學成績：%d 分" % score[1])
+print("英文成績：%d 分" % score[2])
+```
+## ninenine.py
+```
+for i in range(1,10):
+    for j in range(1,10):
+        product = i * j
+        print("%d*%d=%-2d   " % (i, j, product), end="")
+    print()
+
+```
+## numtotal.py
+```
+sum = 0
+n = int(input("請輸入正整數："))
+for i in range(1, n+1):
+    sum += i
+print("1 到 %d 的整數和為 %d" % (n, sum))
+```
+## prime.py
+```
+n = int(input("請輸入大於 1 的整數："))
+if(n == 2):
+    print("2 是質數！")
+else:
+    for i in range(2, n):
+        if(n % i == 0):
+            print("%d 不是質數！" % n)
+            break
+    else:
+        print("%d 是質數！" % n)
+```
+## while1.py
+```
+total = person = score = 0
+while(score != -1):
+    person += 1
+    total += score
+    score = int(input("請輸入第 %d 位學生的成績：" % person))
+average = total / (person - 1)
+print("本班總成績：%d 分，平均成績：%5.2f 分" % (total, average))
+```
+# ch04
+---
+## dictget.py
+```
+dict1 = {"A":"內向穩重", "B":"外向樂觀", "O":"堅強自信", "AB":"聰明自然"}
+name = input("輸入要查詢的血型:")
+blood = dict1.get(name)
+if blood == None:  
+    print("沒有「" + name + "」血型！")
+else:  
+    print(name + " 血型的個性為：" + str(dict1[name]))
+```
+## in.py
+```
+dict1 = {"林小明":85, "曾山水":93, "鄭美麗":67}
+name = input("輸入學生姓名：")
+if name in dict1:  
+    print(name + "的成績為 " + str(dict1[name]))
+else:  
+    score = input("輸入學生分數：")
+    dict1[name] = score
+    print("字典內容：" + str(dict1))
+```
+## item.py
+```
+dict1={"金牌":26, "銀牌":34, "銅牌":30}
+item1 = list(dict1.items())
+for name, num in item1:
+    print("得到的 %s 數目為 %d 面" % (name, num))
+
+```
+## keyvalue.py
+```
+dict1={"金牌":26, "銀牌":34, "銅牌":30}
+listkey = list(dict1.keys())
+listvalue = list(dict1.values())
+for i in range(len(listkey)):
+    print("得到的 %s 數目為 %d 面" % (listkey[i], listvalue[i]))
+
+```
 
 
 
