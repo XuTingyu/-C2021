@@ -1,3 +1,5 @@
+# 1.
+```
 //package treeSetDemo;
 import java.util.*;
 public class TreeSetDemo{
@@ -31,3 +33,4 @@ public class TreeSetDemo{
         keyin.close();
     }
 }
+```
