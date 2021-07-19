@@ -2888,10 +2888,448 @@ for data in datas:
 lsit1=[1,2,3,4]    
 list1[0]
 ```
+# ch14
+---
+## df1.py
+```
+import pandas as pd
+df = pd.DataFrame([[65,92,78,83,70], 
+                   [90,72,76,93,56], 
+                   [81,85,91,89,77], 
+                   [79,53,47,94,80]])
+print(df)
+```
+## df2.py
+```
+import pandas as pd
+df = pd.DataFrame([[65,92,78,83,70], 
+                   [90,72,76,93,56], 
+                   [81,85,91,89,77], 
+                   [79,53,47,94,80]],
+                   index=['王小明','李小美','陳大同','林小玉'],
+                   columns=['國文','英文','數學','自然','社會'])
+print(df)
+```
+## df3.py
+```
+import pandas as pd
+scores = {'國文':{'王小明':65,'李小美':90,'陳大同':81,'林小玉':79},
+          '英文':{'王小明':92,'李小美':72,'陳大同':85,'林小玉':53},
+          '數學':{'王小明':78,'李小美':76,'陳大同':91,'林小玉':47},
+          '自然':{'王小明':83,'李小美':93,'陳大同':89,'林小玉':94},
+          '社會':{'王小明':70,'李小美':56,'陳大同':94,'林小玉':80}}
+df = pd.DataFrame(scores)
+print(df)    
+```
+## df3_.py
+```
+import pandas as pd
+scores = {'王小明':{'國文':65,'英文':92,'數學':78,'社會':83,'自然':70},
+          '李小美':{'國文':90,'英文':72,'數學':76,'社會':93,'自然':56},
+          '陳大同':{'國文':81,'英文':85,'數學':91,'社會':89,'自然':77},
+          '林小玉':{'國文':79,'英文':53,'數學':47,'社會':94,'自然':80}}
+df = pd.DataFrame(scores)
+print(df)    
+```
+## df4.py
+```
+import pandas as pd
+se1 = pd.Series({'王小明':65,'李小美':90,'陳大同':81,'林小玉':79})
+se2 = pd.Series({'王小明':92,'李小美':72,'陳大同':85,'林小玉':53})
+se3 = pd.Series({'王小明':78,'李小美':76,'陳大同':91,'林小玉':47})
+se4 = pd.Series({'王小明':83,'李小美':93,'陳大同':89,'林小玉':94})
+se5 = pd.Series({'王小明':70,'李小美':56,'陳大同':94,'林小玉':80})
+df = pd.DataFrame({'國文':se1, '英文':se2, '數學':se3, '自然':se4, '社會':se5})
+print(df)
+```
+## df5.py
+```
+import pandas as pd
+se1 = pd.Series({'王小明':65,'李小美':90,'陳大同':81,'林小玉':79})
+se2 = pd.Series({'王小明':92,'李小美':72,'陳大同':85,'林小玉':53})
+se3 = pd.Series({'王小明':78,'李小美':76,'陳大同':91,'林小玉':47})
+se4 = pd.Series({'王小明':83,'李小美':93,'陳大同':89,'林小玉':94})
+se5 = pd.Series({'王小明':70,'李小美':56,'陳大同':94,'林小玉':80})
+df = pd.concat([se1,se2,se3,se4,se5], axis=0)
+df.columns=['國文','英文','數學','自然','社會']
+print(df)
+```
+## df6.py
+```
+import pandas as pd
+scores = {'國文':{'王小明':65,'李小美':90,'陳大同':81,'林小玉':79},
+          '英文':{'王小明':92,'李小美':72,'陳大同':85,'林小玉':53},
+          '數學':{'王小明':78,'李小美':76,'陳大同':91,'林小玉':47},
+          '自然':{'王小明':83,'李小美':93,'陳大同':89,'林小玉':94},
+          '社會':{'王小明':70,'李小美':56,'陳大同':94,'林小玉':80}}
+df = pd.DataFrame(scores)
+print(df["自然"])
+print(df[["國文", "數學", "自然"]])
+print(df[df["國文"] >= 80])
+print(df.values)
+print(df.values[1])
+print(df.values[1][2])
+# loc
+print(df.loc["林小玉", "社會"])
+print(df.loc["王小明", ["國文","社會"]])
+print(df.loc[["王小明", "李小美"], ["數學", "自然"]])
+print(df.loc["王小明":"陳大同", "數學":"社會"])
+print(df.loc["陳大同", :])
+print(df.loc[:"李小美", "數學":"社會"])
+print(df.loc["李小美":, "數學":"社會"])
+print(df.iloc[3, 4])
+# iloc
+df.iloc[0, [0, 4]]
+df.iloc[[0, 1], [2, 3]]
+df.iloc[0:3, 2:5]
+df.iloc[2, :]
+df.iloc[:2, 2:5]
+df.iloc[1:, 2:5]
+# head() tail()
+df.head(2)
+df.tail(2)
+```
+## df7.py
+```
+import pandas as pd
+scores = {'國文':{'王小明':65,'李小美':90,'陳大同':81,'林小玉':79},
+          '英文':{'王小明':92,'李小美':72,'陳大同':85,'林小玉':53},
+          '數學':{'王小明':78,'李小美':76,'陳大同':91,'林小玉':47},
+          '自然':{'王小明':83,'李小美':93,'陳大同':89,'林小玉':94},
+          '社會':{'王小明':70,'李小美':56,'陳大同':94,'林小玉':80}}
+df = pd.DataFrame(scores)
+# 排序
+print(df.sort_values(by="數學", ascending=False))
+print(df.sort_index(axis=0))
+# 修改
+df1 = df.loc["王小明"]["數學"] = 90
+print(df)
+df2 = df.loc["王小明", :] = 80
+print(df)
+# 刪除
+df.drop("王小明")
+df.drop("數學", axis=1)
+df.drop(["數學", "自然"], axis=1)
+df.drop(df.index[1:4])
+df.drop(df.columns[1:4], axis=1)
+```
+## np1.py
+```
+import numpy as np
+np1 = np.array([1,2,3,4])	#使用list
+np2 = np.array((5,6,7,8))	#使用tuple
+print(np1)
+print(np2)
+print(type(np1), type(np2))
+```
+## np2.py
+```
+import numpy as np
+na = np.array([1,2,3,4], dtype=int)
+print(na)
+na = np.array([1,2,3,4], dtype=float)
+print(na)
+```
+## np3.py
+```
+import numpy as np
+na = np.arange(0, 31, 2)
+print(na)
+```
+## np4.py
+```
+import numpy as np
+na = np.linspace(1, 15, 3)
+print(na)
+```
+## np5.py
+```
+import numpy as np
+a = np.zeros((5,))
+print(a)
+```
+## np6.py
+```
+import numpy as np
+b = np.ones((5,))
+print(b)
+```
+## np7.py
+```
+import numpy as np
+c = np.empty((5,))
+print(c)
+```
+## np8.py
+```
+import numpy as np
+listdata = [[1,2,3,4,5],
+            [6,7,8,9,10],
+            [11,12,13,14,15]]
+na = np.array(listdata)
+print(na)
+print('維度', na.ndim)
+print('形狀', na.shape)
+print('數量', na.size)
+```
+## np9.py
+```
+import numpy as np
+adata = np.arange(1,17)
+print(adata)
+bdata = adata.reshape(4,4)
+print(bdata)
+```
+## np10.py
+```
+import numpy as np
+na = np.arange(0,6)
+print(na)           #[0 1 2 3 4 5]
+print(na[0])        #0
+print(na[5])        #5
+print(na[1:5])      #[1 2 3 4]
+print(na[1:5:2])    #[1 3]
+print(na[5:1:-1])   #[5 4 3 2]
+print(na[:])        #[0 1 2 3 4 5]
+print(na[:3])       #[0 1 2]
+print(na[3:])       #[3 4 5]
+```
+## np11.py
+```
+import numpy as np
+na = np.arange(1, 17).reshape(4, 4)
+print(na[2, 3])			#12
+print(na[1, 1:3])		#[6,7]
+print(na[1:3, 2])		#[7,11]
+print(na[1:3, 1:3])		#[[6,7],[7,11]]
+print(na[::2, ::2])		#[[1,3],[9,11]]
+print(na[:, 2])			#[3,7,11,15]
+print(na[1, :])			#[5,6,7,8]
+print(na[:, :])			#矩陣全部
+```
+## np12.py
+```
+import numpy as np
+print('1.產生2x3 0~1之間的隨機浮點數\n',
+      np.random.rand(2,3))
+print('2.產生2x3常態分佈的隨機浮點數\n',
+      np.random.randn(2,3))
+print('3.產生0~4(不含5)隨機整數\n',
+      np.random.randint(5))
+print('4.產生2~4(不含5)5個隨機整數\n',
+      np.random.randint(2,5,[5]))
+print('5.產生3個 0~1之間的隨機浮點數\n',
+      np.random.random(3),'\n',
+      np.random.random_sample(3),'\n',
+      np.random.sample(3))
+print('6.產生0~4(不含5)2x3的隨機整數\n',
+      np.random.choice(5,[2,3]))
+print('7.產生0~42(不含43)6個不重複的隨機整數\n',
+      np.random.choice(43,6,replace=False))
+```
+## np13.py
+```
+import numpy as np
+a = np.genfromtxt('scores.csv', delimiter=',', skip_header=1)
+print(a.shape)
+```
+## np14.py
+```
+import numpy as np
+a = np.arange(1,10).reshape(3,3)
+b = np.arange(10,19).reshape(3,3)
+print('a 陣列內容：\n', a)
+print('b 陣列內容：\n', b)
+print('a 陣列元素都加值：\n', a + 1)
+print('a 陣列元素都平方：\n', a ** 2)
+print('a 陣列元素加判斷：\n', a < 5)
+print('a 陣列取出第一個row都加1：\n', a[0,:] + 1)
+print('a 陣列取出第一個col都加1：\n', a[:,0] + 1)
+print('a b 陣列對應元素相加：\n', a + b)
+print('a b 陣列對應元素相乘：\n', a * b)
+print('a b 陣列點積計算：\n', np.dot(a,b))
+```
+## np15.py
+```
+import numpy as np
+a = np.arange(1,10).reshape(3,3)
+print('陣列的內容：\n', a)
+print('1.最小值與最大值：\n',
+      np.min(a), np.max(a))
+print('2.每一直行最小值與最大值：\n',
+      np.min(a, axis=0), np.max(a, axis=0))
+print('3.每一橫列最小值與最大值：\n',
+      np.min(a, axis=1), np.max(a, axis=1))
+print('4.加總、乘積及平均值：\n',
+      np.sum(a), np.prod(a), np.mean(a))
+print('5.每一直行加總、乘積與平均值：\n',
+      np.sum(a, axis=0), np.prod(a, axis=0), np.mean(a, axis=0))
+print('6.每一橫列加總、乘積與平均值：\n',
+      np.sum(a, axis=1), np.prod(a, axis=1), np.mean(a, axis=1))
+```
+## np15_.py
+```
+import numpy as np
+na = np.genfromtxt('scores.csv', delimiter=',', skip_header=1)
+print('國文最高分數：', na[:,1].max())
+print('英文最低分數：', na[:,2].min())
+print('數學平均分數：', na[:,3].mean())
+total1 = na[:,1] + na[:,2] + na[:,3]
+print(total1)
+print('全班最高總分：',total1.max())
 
+total2 = na[:,1:4].sum(axis=1)
+print(total2)
+print('全班最高總分：',total2.max())
+```
+## np16.py
+```
+import numpy as np
+a = np.random.randint(100,size=50)
+print('陣列的內容：', a)
+print('1.標準差：', np.std(a))
+print('2.變異數：', np.var(a))
+print('3.中位數：', np.median(a))
+print('4.百分比值：', np.percentile(a, 80))
+print('5.最大最小差值：', np.ptp(a))
+```
+## np17.py
+```
+import numpy as np
+a = np.random.choice(50, size=10, replace=False)
+print('排序前的陣列：', a)
+print('排序後的陣列：', np.sort(a))
+print('排序後的索引：', np.argsort(a))
+#用索引到陣列取值
+for i in np.argsort(a):
+    print(a[i], end=',')
+```
+## np18.py
+```
+import numpy as np
+a = np.random.randint(0,10,(3,5))
+print('原陣列內容：')
+print(a)
+print('將每一直行進行排序：')
+print(np.sort(a, axis=0))
+print('將每一橫列進行排序：')
+print(np.sort(a, axis=1))
+```
+## pd1.py
+```
+import pandas as pd
+df = pd.Series(['a','b','c','d','e'])
+print(se[1:3])
+```
+## plot1.py
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei" #也可設mingliu或DFKai-SB
 
+plt.rcParams["axes.unicode_minus"] = False 
 
+df = pd.DataFrame([[250,320,300,312,280],
+                   [280,300,280,290,310],
+                   [220,280,250,305,250]],
+                   index=['北部','中部','南部'],
+                   columns=[2015,2016,2017,2018,2019])
+g1 = df.plot(kind='bar', title='長條圖', figsize=[10,5])
+g2 = df.plot(kind='barh', title='橫條圖', figsize=[10,5])
+g3 = df.plot(kind='bar', stacked=True, title='堆疊圖', figsize=[10,5])
+```
+## plot2.py
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei" #也可設mingliu或DFKai-SB
+plt.rcParams["axes.unicode_minus"] = False 
 
+df = pd.DataFrame([[250,320,300,312,280],
+                   [280,300,280,290,310],
+                   [220,280,250,305,250]],
+                   index=['北部','中部','南部'],
+                   columns=[2015,2016,2017,2018,2019])
+g1 = df.iloc[0].plot(kind='line', legend=True, xticks=range(2015,2020), title='公司分區年度銷售表', figsize=[10,5])
+g1 = df.iloc[1].plot(kind='line', legend=True, xticks=range(2015,2020))
+g1 = df.iloc[2].plot(kind='line', legend=True, xticks=range(2015,2020))
+```
+## plot3.py
+```
+import pandas as pd
+import matplotlib.pyplot as plt
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei"  #也可設mingliu或DFKai-SB
+plt.rcParams["axes.unicode_minus"] = False 
+
+df = pd.DataFrame([[250,320,300,312,280],
+                   [280,300,280,290,310],
+                   [220,280,250,305,250]],
+                   index=['北部','中部','南部'],
+                   columns=[2015,2016,2017,2018,2019])
+df.plot(kind='pie', subplots=True, figsize=[20,20])
+```
+## read_cvs.py
+```
+import pandas as pd
+data = pd.read_csv("scores2.csv", header=0, index_col=0)
+print(data)
+print(type(data))
+```
+## read_html.py
+```
+import pandas as pd
+url = 'https://www.tiobe.com/tiobe-index/'
+tables = pd.read_html(url, header=0, keep_default_na=False)
+print(tables[0])
+```
+## se1.py
+```
+import pandas as pd
+se = pd.Series([1,2,3,4,5])
+print(se)           #顯示Series
+print(se.values)    #顯示值
+print(se.index)     #顯示索引
+```
+## se2.py
+```
+import pandas as pd
+se = pd.Series([1,2,3,4,5])
+print(se[2])
+print(se[2:5])
+```
+## se3.py
+```
+import pandas as pd
+se = pd.Series([1,2,3,4,5], index=['a','b','c','d','e'])
+print(se)
+print(se['b'])
+print(se['c':'d'])
+```
+## se4.py
+```
+import pandas as pd
+dict1 = {'Taipei': '台北', 'Taichung': '台中', 'Kaohsiung': '高雄'}
+se = pd.Series(dict1)
+print(se)           #顯示Series
+print(se.values)    #顯示值
+print(se.index)     #顯示索引
+print(se['Taipei']) #用索引取值
+print(se['Taichung':'Kaohsiung'])
+```
+## to_cvs.py
+```
+import pandas as pd
+scores = {'國文':{'王小明':65,'李小美':90,'陳大同':81,'林小玉':79},
+          '英文':{'王小明':92,'李小美':72,'陳大同':85,'林小玉':53},
+          '數學':{'王小明':78,'李小美':76,'陳大同':91,'林小玉':47},
+          '自然':{'王小明':83,'李小美':93,'陳大同':89,'林小玉':94},
+          '社會':{'王小明':70,'李小美':56,'陳大同':94,'林小玉':80}}
+df = pd.DataFrame(scores)
+df.to_csv('scores3.csv', encoding='utf-8-sig')
+```
 
 
 
