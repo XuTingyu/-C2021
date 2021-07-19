@@ -2304,9 +2304,590 @@ sheet.append(listdata)
 # 儲存檔案   
 workbook.save('test.xlsx')
 ```
+# ch13
+---
+## bar1.py
+```
+import matplotlib.pyplot as plt
 
+listx = ['c','c++','c#','java','python']
+listy = [45,28,38,32,50]
+plt.bar(listx, listy, width=0.5, color='rgb')
+plt.title("資訊程式課程選修人數")
+plt.xlabel("程式課程")
+plt.ylabel("選修人數")
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "SimHei" 
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## bar2.py
+```
+import matplotlib.pyplot as plt
 
+listy = ['c','c++','c#','java','python']
+listx = [45,28,38,32,50]
+plt.barh(listy, listx, height=0.5, color='rgb')
+plt.title("資訊程式課程選修人數")
+plt.xlabel("程式課程")
+plt.ylabel("選修人數")
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "SimHei" 
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## bar3.py
+```
+import matplotlib.pyplot as plt
 
+listx = ['c','c++','c#','java','python']
+listy1 = [25,20,20,16,28]
+listy2 = [20,8,18,16,22]
+plt.bar(listx, listy1, width=0.5, label='男')
+plt.bar(listx, listy2, width=0.5, bottom=listy1, label='女')
+plt.legend()
+plt.title("資訊程式課程選修人數")
+plt.xlabel("程式課程")
+plt.ylabel("選修人數")
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "SimHei" 
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## bar4.py
+```
+import matplotlib.pyplot as plt
+
+width = 0.25
+listx = ['c','c++','c#','java','python']
+listx1 = [x - width/2 for x in range(len(listx))]
+listx2 = [x + width/2 for x in range(len(listx))]
+listy1 = [25,20,20,16,28]
+listy2 = [20,8,18,16,22]
+plt.bar(listx1, listy1, width, label='男')
+plt.bar(listx2, listy2, width, label='女')
+plt.xticks(range(len(listx)), labels=listx)
+plt.legend()
+plt.title("資訊程式課程選修人數")
+plt.xlabel("程式課程")
+plt.ylabel("選修人數")
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "SimHei" 
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## figure.py
+```
+import matplotlib.pyplot as plt
+# 新增圖表區
+plt.figure()
+plt.plot([1,2,3])
+# 新增圖表區並設定屬性
+plt.figure(figsize=[8,4], dpi=84, facecolor="whitesmoke", edgecolor="r", linewidth=1, frameon=True)
+plt.plot([1,2,3])
+
+plt.show()
+```
+## figure2.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure()
+plt.plot([1,2,3])
+plt.grid(axis='y')
+plt.show()
+```
+## pie.py
+```
+import matplotlib.pyplot as plt
+
+sizes = [25, 30, 15, 10]
+labels = ["北部", "西部", "南部", "東部"]
+colors = ["red", "green", "blue", "yellow"]
+explode = (0, 0, 0.2, 0)
+plt.pie(sizes, 
+	explode = explode, 
+	labels = labels, 
+	colors = colors,
+	labeldistance = 1.1, 
+	autopct = "%2.1f%%", 
+	pctdistance = 0.6,
+	shadow = True,
+	startangle = 90)
+plt.show()
+```
+## plot1.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,5,7,9,13,16]
+listy = [15,50,80,40,70,50]
+plt.plot(listx, listy, 'g--*', markersize=12)
+plt.show()
+```
+## plot2.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,5,7,9,13,16]
+listy = [15,50,80,40,70,50]
+plt.plot(listx, listy, color="red", lw="2.0", ls="--", label="label")
+plt.title("Chart Title", fontsize=20)	#圖表標題
+plt.xlabel("X-Label", fontsize=14)		#x座標標題
+plt.ylabel("Y-Label", fontsize=14)		#y座標標題
+plt.legend()
+plt.show()
+```
+## plot3.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,5,7,9,13,16]
+listy = [15,50,80,40,70,50]
+plt.plot(listx, listy, color="red", lw="2.0", ls="--", label="label")
+plt.title("Chart Title")	#圖表標題
+plt.xlabel("X-Label")		#x座標標題
+plt.ylabel("Y-Label")		#y座標標題
+plt.xlim(0, 20)            #設定x座標範圍
+plt.ylim(0, 100)             #設定y座標範圍
+plt.legend()
+plt.show()
+```
+## plot4.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,5,7,9,13,18]
+listy = [15,50,80,40,70,50]
+plt.plot(listx, listy, color="red", lw="2.0", ls="--", label="label")
+plt.title("Chart Title")	#圖表標題
+plt.xlabel("X-Label")		#x座標標題
+plt.ylabel("Y-Label")		#y座標標題
+plt.xlim(0, 20)            #設定x座標範圍
+plt.ylim(0, 100)             #設定y座標範圍
+plt.grid(color='black', linestyle=":", linewidth='1', alpha=0.5)
+plt.legend()
+plt.show()
+```
+## plot5.py
+```
+import matplotlib.pyplot as plt
+
+listx1 = [1,5,7,9,13,16]
+listy1 = [15,50,80,40,70,50]
+plt.plot(listx1, listy1, 'r-.s')
+listx2 = [2,6,8,11,14,16]
+listy2 = [10,40,30,50,80,60]
+plt.plot(listx2, listy2, 'y-s')
+plt.show()
+```
+## plot5_.py
+```
+import matplotlib.pyplot as plt
+month = [1,2,3,4,5,6,7,8,9,10,11,12]
+listy1 = [128,210,199,121,105,98,152,107,150,122,180,220]
+plt.plot(month, listy1, 'r-.s', lw=2, ms=10, label="Taipei")
+listy2 = [150,200,180,110,100,80,80,100,130,120,110,200]
+plt.plot(month, listy2, 'g--*', lw=2, ms=10, label="Taichung")
+plt.legend()
+plt.xticks(month)
+plt.ylim(50, 250)
+plt.title("Sales Report", fontsize=18)
+plt.xlabel("Month", fontsize=12)
+plt.ylabel("Million", fontsize=12)
+plt.show()
+```
+## plot6.py
+```
+import matplotlib.pyplot as plt
+
+listx1 = [1,5,7,9,13,16]
+listy1 = [15,50,80,40,70,50]
+listx2 = [2,6,8,11,14,16]
+listy2 = [10,40,30,50,80,60]
+plt.plot(listx1, listy1, 'r-.s', listx2, listy2, 'y-s')
+plt.show()
+```
+## plot6_.py
+```
+import matplotlib.pyplot as plt
+
+listx1 = [1,5,7,9,13,16]
+listy1 = [15,50,80,40,70,50]
+plt.plot(listx1, listy1, 'r-.s', lw=2, ms=10, label="Male")
+listx2 = [2,6,8,11,14,16]
+listy2 = [10,40,30,50,80,60]
+plt.plot(listx2, listy2, 'g--*', lw=2, ms=10, label="Female")
+plt.legend()
+plt.xlim(0, 20)
+plt.ylim(0, 100)
+plt.title("費用", fontsize=18)
+plt.xlabel("Age", fontsize=12)
+plt.ylabel("Money", fontsize=12)
+plt.tick_params(axis='y', color='red')
+plt.rcParams["font.sans-serif"] = "SimHei"
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## plot7.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1000,2000,3000,4000,5000]
+listy = [15,50,80,70,50]
+plt.plot(listx, listy)
+plt.xticks(listx)
+plt.tick_params(axis='both', labelsize=16, color='red')
+plt.show()
+```
+## plot8.py
+```
+import matplotlib.pyplot as plt
+year = [2015,2016,2017,2018,2019]
+city1 = [128,150,199,180,150]
+plt.plot(year, city1, 'r-.s', lw=2, ms=10, label="Taipei")
+city2 = [120,145,180,170,120]
+plt.plot(year, city2, 'g--*', lw=2, ms=10, label="Taichung")
+plt.legend()
+plt.ylim(50, 250)
+plt.xticks(year)
+plt.title("Sales Report", fontsize=18)
+plt.xlabel("Year", fontsize=12)
+plt.ylabel("Million", fontsize=12)
+plt.grid(color='k', ls=':', lw=1, alpha=0.5)
+plt.show()
+```
+## plot9.py
+```
+import matplotlib.pyplot as plt
+year = [2015,2016,2017,2018,2019]
+city1 = [128,150,199,180,150]
+plt.plot(year, city1, 'r-.s', lw=2, ms=10, label="台北")
+city2 = [120,145,180,170,120]
+plt.plot(year, city2, 'g--*', lw=2, ms=10, label="台中")
+plt.legend()
+plt.ylim(50, 250)
+plt.xticks(year)
+plt.title("銷售報表", fontsize=18)
+plt.xlabel("年度", fontsize=12)
+plt.ylabel("百萬", fontsize=12)
+# 設定中文字型及負號正確顯示
+plt.rcParams["font.sans-serif"] = "Microsoft JhengHei" #也可設mingliu或DFKai-SB
+plt.rcParams["axes.unicode_minus"] = False
+plt.show()
+```
+## plotly1.py
+```
+import plotly
+from plotly.graph_objs import Scatter
+
+#plotly.offline.init_notebook_mode(connected=True)
+
+data = [Scatter(x=["林大明", "陳聰明", "黃美麗", "熊小娟"], y=[67,89,72,95])]
+plotly.offline.plot({
+    "data": data
+}) 
+```
+## subplot_1.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,2,3,4,5]
+
+listy1 = [15,50,80,40,70]
+plt.subplot(2,1,1)
+plt.ylim(0, 100)
+plt.plot(listx, listy1, 'r-s')
+
+listy2 = [80,20,60,50,20]
+plt.subplot(2,1,2)
+plt.ylim(0, 100)
+plt.plot(listx, listy2, 'g--o')
+
+plt.show()
+
+#plt.rcParams['figure.figsize'] = [10, 10]
+#plt.rcParams['figure.dpi'] = 72
+#plt.rcParams.keys
+```
+## subplot_2.py
+```
+import matplotlib.pyplot as plt
+
+listx = [1,2,3,4,5]
+
+listy1 = [15,50,80,40,70]
+plt.axes([0.1, 0, 0.8, 0.8])
+plt.ylim(0, 100)
+plt.plot(listx, listy1, 'r-s')
+
+listy2 = [80,20,60,50,20]
+plt.axes([1, 0, 0.8, 0.8])
+plt.ylim(0, 100)
+plt.plot(listx, listy2, 'g--o')
+
+plt.axes([0.1, 1, 0.8, 0.8])
+plt.ylim(0, 100)
+plt.plot(listx, listy1, 'r-s')
+
+plt.axes([1, 1, 0.8, 0.8])
+plt.ylim(0, 100)
+plt.plot(listx, listy2, 'g--o')
+
+plt.show()
+
+#plt.rcParams['figure.figsize'] = [10, 10]
+#plt.rcParams['figure.dpi'] = 72
+#plt.rcParams.keys
+```
+## subplot1.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,8])
+plt.subplot(211)
+plt.title(label='Chart 1')
+plt.plot([1,2,3],'r:o')
+
+plt.subplot(212)
+plt.title(label='Chart 2')
+plt.plot([1,2,3],'g--o')
+
+plt.show()
+```
+## subplot2.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,8])
+plt.subplot(121)
+plt.title(label='Chart 1')
+plt.plot([1,2,3],'r:o')
+
+plt.subplot(122)
+plt.title(label='Chart 2')
+plt.plot([1,2,3],'g--o')
+
+plt.show()
+```
+## subplot3.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,8])
+plt.subplot(221)
+plt.title(label='Chart 1')
+plt.plot([1,2,3],'r:o')
+
+plt.subplot(222)
+plt.title(label='Chart 2')
+plt.plot([1,2,3],'g--o')
+
+plt.subplot(223)
+plt.title(label='Chart 3')
+plt.plot([1,2,3],'b:o')
+
+plt.subplot(224)
+plt.title(label='Chart 4')
+plt.plot([1,2,3],'y--o')
+
+plt.show()
+```
+## subplot4.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,4])
+plt.axes([0,0,0.4,1])
+plt.title(label='Chart 1')
+plt.plot([1,2,3],'r:o')
+
+plt.axes([0.5,0,0.4,1])
+plt.title(label='Chart 2')
+plt.plot([1,2,3],'g--o')
+
+plt.show()
+```
+## subplot5.py
+```
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=[8,4])
+plt.axes([0,0,0.8,1])
+plt.title(label='Chart 1')
+plt.plot([1,2,3],'r:o')
+
+plt.axes([0.55,0.1,0.2,0.2])
+plt.title(label='Chart 2')
+plt.plot([1,2,3],'g--o')
+
+plt.show()
+```
+## twstock1.py
+```
+import twstock
+# 以鴻海的股票代號建立 Stock 物件
+stock = twstock.Stock('2317')  
+print(stock.price)
+```
+## twstock2.py
+```
+import twstock
+# 以鴻海的股票代號建立 Stock 物件
+stock = twstock.Stock('2317')  
+print("日期：",stock.date[-1])
+print("開盤價：",stock.open[-1])
+print("最高價：",stock.high[-1])
+print("最低價：",stock.low[-1])
+print("收盤價：",stock.price[-1])
+```
+## twstock3.py
+```
+import twstock
+# 以鴻海的股票代號建立 Stock 物件
+stock = twstock.Stock('2317')  
+# 取得 2019 年 12 月的資料
+stocklist = stock.fetch(2019,12)   
+for s in stocklist:
+    print(s.date.strftime('%Y-%m-%d'), end='\t')
+    print(s.open, end='\t')
+    print(s.high, end='\t')
+    print(s.low, end='\t')
+    print(s.close)
+```
+## twstock4.py
+```
+import twstock
+# 鴻海股票即時交易資訊
+real = twstock.realtime.get('2317') 
+if real['success']:  #如果讀取成功
+    print('即時股票資料：',real['info']['name'])     
+    print('開盤價：',real['realtime']['open'], end=', ')
+    print('最高價：',real['realtime']['high'], end=', ')  
+    print('最低價：',real['realtime']['low'], end=', ')
+    print('目前股價：',real['realtime']['latest_trade_price'])   
+else:
+    print('錯誤：' + real['rtmessage'])  
+
+```
+## twstock5.py
+```
+import matplotlib.pyplot as plt
+import twstock
+# 以鴻海的股票代號建立 Stock 物件
+stock = twstock.Stock('2317')  
+# 取得 2019 年 12 月的資料
+stocklist = stock.fetch(2019,12)   
+listx = []
+listy = []
+for s in stocklist:
+    listx.append(s.date.strftime('%Y-%m-%d'))
+    listy.append(s.close)
+
+plt.figure(figsize=[10,5])
+plt.title('鴻海2019年12月股價',fontsize=18)
+plt.xlabel("日期",fontsize=14)
+plt.ylabel("股價",fontsize=14)
+plt.plot(listx, listy, 'r:s')
+plt.xticks(rotation=45)
+plt.grid('k:', alpha=0.5)
+plt.ylim(88,93)
+plt.yticks([88,89,90,91,92,93])
+plt.rcParams["font.sans-serif"] = "SimHei" 
+plt.rcParams["axes.unicode_minus"] = False
+
+plt.show() 
+```
+## twstock6.py
+```
+import matplotlib.pyplot as plt
+import twstock
+companys = ['2330','2912','3293']
+plt.figure(figsize=[10,5])
+for company in companys:
+    stock = twstock.Stock(company)  
+    # 取得 2019 年 12 月的資料
+    stocklist = stock.fetch(2019,12)   
+    listx = []
+    listy = []
+    for s in stocklist:
+        listx.append(s.date.strftime('%Y-%m-%d'))
+        listy.append(s.close)
+    
+    plt.plot(listx, listy)
+    plt.xticks(rotation=45)
+plt.show() 
+```
+## twstock7.py
+```
+import matplotlib.pyplot as plt
+import twstock
+import time
+#plt.figure(figsize=[12,30])
+stock = twstock.Stock('2317') 
+slist = []
+for i in range(1,13):
+    stocklist = stock.fetch(2019,i)
+    [slist.append(s) for s in stocklist]
+#    listx = [s.date.strftime('%d') for s in stocklist]
+#    listy = [s.close for s in stocklist]
+#    plt.subplot('62{}'.format(i))
+#    plt.xticks(rotation=45)
+#    plt.title(label="{}月".format(i))
+#    plt.rcParams["font.sans-serif"] = "SimHei" 
+#    plt.rcParams["axes.unicode_minus"] = False
+#    plt.plot(listx, listy)
+    print(len(slist))
+    time.sleep(5)
+    if i == 6:
+        time.sleep(20)
+    
+
+#plt.show()
+
+#lista = []
+#list1 = [1,2,3,4,5]
+#list2 = [7,8,9,10,11]
+#list1.append(list2)
+#list1
+#%%
+import csv
+with open('2019_2330.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerows(slist)
+#%%
+import matplotlib.pyplot as plt
+import csv
+with open('2019_2330.csv', 'r', newline='') as f:
+    datas = csv.reader(f)  
+    listx = []
+    listy = []
+    for data in datas:
+        listx.append(data[0])
+        listy.append(data[5])
+
+#    print(len(datas))
+#    print(len(listx), len(listy))
+    plt.figure(figsize=(20,5))
+    plt.plot(listx, listy)
+    plt.yticks(range(10,200,10))
+    plt.show() 
+#    print([x[6] for x in datas])
+
+#    print(type(datas))
+#%%
+plt.figure(figsize=(20,5))
+plt.plot([x.close for x in slist])
+plt.show() 
+
+#%%
+for data in datas:
+    print(data)
+    
+#%%
+lsit1=[1,2,3,4]    
+list1[0]
+```
 
 
 
