@@ -1962,11 +1962,348 @@ for i in range(6,12):
 num = datas.find('div', class_='ball_red').text
 print('\n第二區：', num)
 ```
+# ch12
+---
+## csv_read.py
+```
+import csv
+# 開啟 csv 檔案
+with open('test1.csv', newline='') as csvfile:
+    # 讀取 csv 檔案內容
+    rows = csv.reader(csvfile)
+    
+    # 以迴圈顯示每一列
+    for row in rows:
+        print(row)
+```
+## csv_read_dict.py
+```
+import csv
+# 開啟 csv 檔案
+with open('test1.csv', newline='') as csvfile:
+    # 讀取 csv 檔內容，將每一列轉成 dictionary
+    rows = csv.DictReader(csvfile)   
+    
+    # 以迴圈顯示每一列
+    for row in rows:
+        print(row['姓名'],row['身高'],row['體重'])
+```
+## csv_write_dict.py
+```
+import csv
+with open('test3.csv', 'w', newline='') as csvfile:
+    # 定義欄位
+    fieldnames = ['姓名', '身高', '體重']
 
+    # 將 dictionary 寫入 csv 檔
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
+    # 寫入欄位名稱
+    writer.writeheader()
+    # 寫入資料
+    writer.writerow({'姓名': 'Chiou', '身高': 170, '體重': 65})
+    writer.writerow({'姓名': 'David', '身高': 183, '體重': 78})
+```
+## csv_write_list1.py
+```
+import csv
+# 開啟輸出的 csv 檔案
+with open('test1.csv', 'w', newline='') as csvfile:
+  # 建立 csv 檔寫入物件
+  writer = csv.writer(csvfile)
 
+  # 寫入欄位名稱
+  writer.writerow(['姓名', '身高', '體重'])
+  # 寫入資料
+  writer.writerow(['Chiou', 170, 65])
+  writer.writerow(['David', 183, 78])
+```
+## csv_write_list2.py
+```
+import csv
+# 建立csv二維串列資料
+csvtable = [
+        ['姓名', '身高', '體重'],
+        ['Chiou', 170, 65],
+        ['David', 183, 78],
+]
+# 開啟輸出的 csv 檔案
+with open('test2.csv', 'w', newline='') as csvfile:
+  # 建立 csv 檔寫入物件
+  writer = csv.writer(csvfile)
 
+  # 寫入二維串列資料
+  writer.writerows(csvtable)
+```
+## fetchall.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+cursor = conn.execute('select * from contact')
+rows = cursor.fetchall()
+# 顯示原始資料
+print(rows)
+# 逐筆顯示資料
+for row in rows:
+    print(row[0],row[1])
+conn.close()  # 關閉資料庫連線
+```
+## fetchone.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+cursor = conn.execute('select * from contact')
+row = cursor.fetchone()
+print(row[0], row[1])
 
+conn.close()  # 關閉資料庫連線
+```
+## LinkGoogleSheet.py
+```
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials as sac
+# 設定金鑰檔路徑及驗證範圍
+auth_json = 'PythonConnectGsheet1-6a6086d149c5.json'
+gs_scopes = ['https://spreadsheets.google.com/feeds']
+# 連線資料表
+cr = sac.from_json_keyfile_name(auth_json, gs_scopes)
+gs_client = gspread.authorize(cr) 
+# 開啟資料表
+spreadsheet_key = '1OihpM657yWo1lc3RjskRfZ8m75dCPwL1IPwoDXSvyzI' 
+sheet = gs_client.open_by_key(spreadsheet_key)
+# 開啟工作簿
+wks = sheet.sheet1
+# 清除所有內容
+wks.clear() 
+# 新增列
+listtitle=["姓名","電話"]
+wks.append_row(listtitle)  # 標題
+listdata=["chiou","0937-1234567"]
+wks.append_row(listdata)  # 資料內容
+```
+## mysqldelete.py
+```
+import pymysql
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+
+with conn.cursor() as cursor:
+    sql = "delete from scores where ID = 4"
+    cursor.execute(sql)
+    conn.commit()
+    sql = "select * from scores"
+    cursor.execute(sql)    
+    data = cursor.fetchall()
+    print(data)
+    
+conn.close()
+```
+## mysqlinsert.py
+```
+import pymysql
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+
+with conn.cursor() as cursor:
+    sql = """
+    insert into scores (Name, Chinese, English, Math) values 
+    ('李大毛',95,92,80),
+    ('林小明',82,83,61),
+    ('黃小英',74,53,71),
+    ('劉大樹',86,87,89),
+    ('何美麗',89,73,95)
+    """
+    cursor.execute(sql)
+    conn.commit()  #提交資料庫
+conn.close()
+```
+## mysqlquery.py
+```
+import pymysql
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+
+with conn.cursor() as cursor:
+    sql = "select * from scores"
+    cursor.execute(sql)
+    datas = cursor.fetchall()   # 取出所有資料
+    print(datas)
+    print('-' * 30)             # 畫分隔線
+    sql = "select * from scores"
+    cursor.execute(sql)    
+    data = cursor.fetchone()    # 取出第一筆資料
+    print(data)
+    
+conn.close()
+```
+## mysqlselect.py
+```
+import pymysql
+
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+cursor = conn.cursor()
+
+sql1 = "select * from score"  #查詢資料
+cursor.execute(sql1)
+data = cursor.fetchall()
+print('全部資料：')
+print(data)
+
+sql2 = "update score set 國文=98 where 座號 = '%s' " % ('4')  #修改資料
+cursor.execute(sql2)
+cursor.execute(sql1)
+data = cursor.fetchall()
+print('修改後資料：')
+print(data)
+
+sql3 = "delete from score where 座號 = '%s' " % ('6')  #刪除資料
+cursor.execute(sql3)
+cursor.execute(sql1)
+data = cursor.fetchall()
+print('刪除後資料：')
+print(data)
+
+conn.commit()  #提交資料庫
+cursor.close()
+conn.close()
+
+```
+## mysqltable.py
+```
+import pymysql
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+
+with conn.cursor() as cursor:
+    sql = """
+    CREATE TABLE IF NOT EXISTS Scores (
+      ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      Name varchar(20),
+      Chinese int(3),
+      English int(3),
+      Math int(3)
+    );
+    """
+    cursor.execute(sql)  #執行SQL指令
+    conn.commit()  #提交資料庫
+conn.close()
+```
+## mysqlupdate.py
+```
+import pymysql
+conn = pymysql.connect('localhost',port=3306,user='root',passwd='1234',charset='utf8', db='pythondb')  #連結資料庫
+
+with conn.cursor() as cursor:
+    sql = "update scores set Chinese = 98 where ID = 4"
+    cursor.execute(sql)
+    conn.commit()
+    sql = "select * from scores where ID = 4"
+    cursor.execute(sql)    
+    data = cursor.fetchone()
+    print(data)
+    
+conn.close()
+```
+## sqlite_crud1.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+
+# 建立一個資料表
+sqlstr='''CREATE TABLE "contact" \
+("id"  INTEGER PRIMARY KEY NOT NULL,
+ "name"  TEXT NOT NULL,
+ "tel"  TEXT NOT NULL)
+'''
+conn.execute(sqlstr)
+conn.commit() # 更新
+conn.close()  # 關閉資料庫連線
+```
+## sqlite_crud2.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+# 定義資料串列
+datas = [[1, 'David', '02-123456789'],
+        [2, 'Lily', '02-987654321'],]
+for data in datas:
+    # 新增資料
+    conn.execute("INSERT INTO contact (id, name, tel) VALUES \
+                 ({}, '{}', '{}')".format(data[0], data[1], data[2]))
+conn.commit() # 更新
+conn.close()  # 關閉資料庫連線
+```
+## sqlite_crud3.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+# 更新資料
+conn.execute("UPDATE contact SET name='{}' WHERE id={}".format('Ken', 1))
+conn.commit() # 更新
+conn.close()  # 關閉資料庫連線
+```
+## sqlite_crud4.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+# 刪除資料
+conn.execute("DELETE FROM contact WHERE id={}".format(1))
+conn.commit() # 更新
+conn.close()  # 關閉資料庫連線
+```
+## sqlite_cursor.py
+```
+import sqlite3
+conn = sqlite3.connect('test.sqlite') # 建立資料庫連線
+cursor = conn.cursor() # 建立 cursor 物件
+
+# 建立一個資料表
+sqlstr='''CREATE TABLE IF NOT EXISTS table01 \
+("id"  INTEGER PRIMARY KEY NOT NULL,
+ "name"  TEXT NOT NULL,
+ "tel"  TEXT NOT NULL)
+'''
+cursor.execute(sqlstr)
+
+# 新增一筆記錄
+sqlstr='insert into table01 values(1, "David", "02-1234567")'
+cursor.execute(sqlstr)
+conn.commit() # 更新
+conn.close()  # 關閉資料庫連線
+```
+## xlsx_read.py
+```
+import openpyxl
+#  讀取檔案
+workbook = openpyxl.load_workbook('test.xlsx')
+# 取得第 1 個工作表
+sheet = workbook.worksheets[0]
+# 取得指定儲存格
+print(sheet['A1'], sheet['A1'].value)
+# 取得總行、列數
+print(sheet.max_row, sheet.max_column)
+# 顯示 cell資料
+for i in range(1, sheet.max_row+1):
+    for j in range(1, sheet.max_column+1):
+        print(sheet.cell(row=i, column=j).value,end="   ")
+    print()
+sheet['A3'] = 'Perry' 
+workbook.save('test.xlsx')      
+```
+## xlsx_write.py
+```
+import openpyxl   
+# 建立一個工作簿     
+workbook=openpyxl.Workbook()   
+# 取得第 1 個工作表
+sheet = workbook.worksheets[0]
+# 以儲存格位置寫入資料
+sheet['A1'] = 'Hello'
+sheet['B1'] = 'World'
+# 以串列寫入資料
+listtitle=["姓名","電話"]
+sheet.append(listtitle)  
+listdata=["David","0999-1234567"]
+sheet.append(listdata)  
+# 儲存檔案   
+workbook.save('test.xlsx')
+```
 
 
 
