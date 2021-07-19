@@ -1623,8 +1623,148 @@ for phone in phoneList:
 ```
 ## phone4.py
 ```
-
+import re
+phoneList=["0412345678","(04)12345678","(04)-12345678","(049)2987654","0937-998877"]
+pat = r'\(\d{2,4}\)-?\d{6,8}|\d{9,10}|\d{4}-\d{6,8}'
+for phone in phoneList:
+    phoneNum = re.search(pat,phone)
+    if not phoneNum==None:
+        print(phoneNum.group())
 ```
+## plus.py
+```
+import re
+pat = re.compile(r'[aeiou]+')
+s="John is my best friend."
+m = re.findall(pat,s)
+print(m) #['o', 'i', 'e', 'ie']
+```
+## re_findall.py
+```
+import re
+m = re.findall(r'[a-z]+','tem12po')
+print(m)  # ['tem', 'po']
+```
+## re_match.py
+```
+import re
+pat = r'[a-z]+'
+m = re.match(pat,'tem12po')
+print(m) # <re.Match object; span=(0, 3), match='tem'>
+```
+## re_search.py
+```
+import re
+pat = '[a-z]+'
+m = re.search(pat,'3tem12po')
+print(m) # <re.Match object; span=(1, 4), match='tem'>
+```
+## re_verbose.py
+```
+import re
+phoneList=["0412345678","(04)12345678","(04)-12345678","(049)2987654","0937-998877"]
+pat = r'''
+ \(\d{2,4}\)-?\d{6,8} #(04)12345678、(04)-12345678、(049)2987654 等電話格式
+|\d{9,10}             #0412345678 等含 9~10 位數字
+|\d{4}-\d{6,8}        #0937-998877 等手機格式
+'''
+
+for phone in phoneList:
+    phoneNum = re.search(pat,phone,re.VERBOSE)
+    if not phoneNum==None:
+        print(phoneNum.group())
+```
+## regex.py
+```
+html = """
+<div class="content">
+    E-Mail：<a href="mailto:mail@test.com.tw">mail</a><br>
+    E-Mail2：<a href="mailto:mail2@test.com.tw">mail2</a><br>
+    <ul class="price">定價：360元 </ul>
+    <img src="http://test.com.tw/p1.jpg">
+    <img src="http://test.com.tw/p2.jpg">
+    <img src="http://test.com.tw/p3.png">
+    電話：(04)-76543210、0937-123456
+</div>
+"""
+
+import re
+
+emails = re.findall(r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+',html)
+for email in emails: #顯示 email
+    print(email)
+
+price=re.findall(r'[\d]+元',html)[0].split('元')[0] #價格
+print(price) #顯示定價金額
+
+imglist = re.findall(r'[http://]+[a-zA-Z0-9-/.]+\.[jpgpng]+',html)
+for img in imglist: #
+    print(img) #顯示圖片網址
+    
+phonelist = re.findall(r'\(?\d{2,4}\)?\-\d{6,8}',html)
+for phone in phonelist:
+    print(phone) #顯示電話號碼 
+```
+## search.py
+```
+import re
+pat = re.compile('[a-z]+')
+
+m = pat.search('3tem12po')
+print(m) # <re.Match object; span=(1, 4), match='tem'>
+if not m==None:
+    print(m.group())  # tem
+    print(m.start())  # 1
+    print(m.end())    # 4
+    print(m.span())   # (1,4)
+```
+## star.py
+```
+import re
+pat = re.compile(r'[aeiou]*')
+s="John is my best friend."
+m = re.findall(pat,s)
+print(m) 
+```
+## sub1.py
+```
+import re
+pat=r"\d+"
+substr="*"
+s="Password:1234,ID:5678"
+result = re.sub(pat,substr,s)
+print(result) # Password:*,ID:*
+```
+## sub2.py
+```
+import re
+
+def multiply(m):
+    v = int(m.group())
+    return str(v * 2)
+
+result = re.sub("\d+", multiply, "10 20 30 40 50",3)
+print(result) # 20 40 60 40 50
+```
+## wild.py
+```
+import re
+pat =r'.o'
+s="Do your best!"
+m = re.findall(pat,s)
+print(m) # ['Do', 'yo']
+m2 = re.findall(r'.*o',s)
+print(m2) # ['Do yo']
+```
+
+
+
+
+
+
+
+
+
 
 
 
