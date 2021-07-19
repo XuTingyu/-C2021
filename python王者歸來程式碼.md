@@ -284,6 +284,184 @@ if web.startswith("http://") or web.startswith("https://"):
 else:
     print("輸入的網址格式錯誤！")
 ```
+# ch06
+---
+## glob.cpython-37.pyc
+```
+```
+## copyfile.py
+```
+import os
+cur_path=os.getcwd() # 取得目前路徑  
+os.system("cls")  # 清除螢幕
+os.system("mkdir dir2")  # 建立 dir2 目錄
+os.system("copy ossystem.py dir2\copyfile.py") # 複製檔案 
+file=cur_path + "\dir2\copyfile.py" 
+os.system("notepad " + file)  # 以記事本開啟 copyfile.py 檔
+```
+## test_file.py
+```
+'''
+模式有
+
+r - 讀取(檔案需存在)
+
+w - 新建檔案寫入(檔案可不存在，若存在則清空)
+
+a - 資料附加到舊檔案後面(游標指在EOF)
+'''
+
+f = open('A.txt', 'a', encoding = 'UTF-8')   # 也可使用指定路徑等方式，如： C:\A.txt
+f.write('你好1\n')
+f.write('你好2\n')
+f.write('你好3\n')
+f.close()
+
+
+'''
+Hello world
+Today id a nice day!
+'''
+
+
+f=open('test_file.txt')
+print(f.readline())
+print(f.readline())
+#f.close()
+
+
+f.seek(0)
+for line in f:
+    print(line.strip())
+    
+f.close()
+
+with open("test_file.txt") as f:
+    for line in f:
+        print(line.strip())          
+
+# write to test_write.txt
+# Write a file
+with open("test_write.txt", "w") as out_file:
+    out_file.write("This Text is going to out file\nLook at it and see!")
+
+```
+## oswalk.py
+```
+import os
+cur_path=os.path.dirname(__file__) # 取得目前路徑
+sample_tree=os.walk(cur_path)
+for dirname,subdir,files in sample_tree:
+    print("檔案路徑：",dirname)
+    print("目錄串列：" , subdir)   
+    print("檔案串列：",files)
+    print()
+```
+## binaryread.py
+```
+with open('file.bin','rb') as f:
+    content=f.read().decode("utf-8") 
+    print(content) 
+    
+```
+## binarywrite.py
+```
+content='''Hello Python
+中文字測試
+Welcome
+'''
+
+content=content.encode("utf-8") #轉成 bytes
+with open('file.bin','wb') as f:
+    f.write(content)
+```
+## copytree.py
+```
+import shutil
+shutil.copytree("oswalk","D:\\newoswalk" )  # 目錄複製
+```
+## fileread1.py
+```
+f=open('file1.txt','rt')
+for line in f:
+    print(line,end="")
+f.close()
+```
+## fileread2.py
+```
+with open('file1.txt','r') as f:
+    for line in f:
+        print(line,end="")
+```
+## fileread3.py
+```
+with open('file1.txt','r') as f:
+    str1=f.read(5)
+    print(str1)  # Hello
+```
+## fileread4.py
+```
+```
+## fileread5.py
+```
+```
+## fileread6.py
+```
+```
+## fileread7.py
+```
+```
+## filereadUTF-8.py
+```
+```
+## fileseek.py
+```
+```
+## filewrite1.py
+```
+```
+## glob.py
+```
+```
+## newfile.py
+```
+```
+## osdirname.py
+```
+```
+## osexists.py
+```
+```
+## osgetcwd.py
+```
+```
+## osmkdir.py
+```
+```
+## ospath.py
+```
+```
+## osremove.py
+```
+```
+## osrmdir.py
+```
+```
+## ossystem.py
+```
+```
+## password.py
+```
+```
+## rmtree.py
+```
+```
+## shutil.py
+```
+```
+ch07
+---
+
 
 
 
