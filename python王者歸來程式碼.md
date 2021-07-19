@@ -971,6 +971,176 @@ def pwd_input():
             msvcrt.putch('*'.encode(encoding='utf-8')) # 顯示 * 號
     return (''.join(chars) )
 ```
+# ch08
+---
+## Assert.py
+```
+class Car(): 
+    def __init__(self, speed):
+        self.speed = speed
+        
+    def Turbo(self,n):  #增加速度 n      
+        assert speed >= 0, '速度不可能為負!'
+        self.speed += n
+
+for speed in (60,-20):         
+    bus=Car(speed)
+    print("初速=",bus.speed,end=" ")
+    bus.Turbo(50) 
+    print("加速後，速度=",bus.speed)        
+```
+## div.py
+```
+def div(a,b):
+    return a/b
+
+print(div(6,2))  # 3.0
+print(div(3,0)) #中止程式
+print(div(4,2))  #未被執行
+```
+## raise1.py
+```
+def CheckSpeed(speed): #檢查速度
+    if speed < 70:
+        raise Exception("速度太慢了!") # 拋出 Exception 型別例外
+    if speed > 110:
+        raise Exception("已經超速了!") # 拋出 Exception 型別例外 
+
+for speed in (60,100,150):       
+    try:
+        CheckSpeed(speed) #檢查速度
+    except Exception as e: #接收 Exception的例外
+        print("現在速度：{}，{}" .format(speed,e))
+    else:
+        print("目前時速：{}" .format(speed))
+```
+## raise2.py
+```
+class MyException(RuntimeError):
+    def __init__(self, arg):
+        self.args = arg
+
+def CheckSpeed(speed): #檢查速度
+    if speed < 70:
+        raise Exception("速度太慢了!") # 拋出 Exception 型別例外
+    if speed > 110:
+        raise Exception("已經超速了!") # 拋出 Exception 型別例外
+    else:
+        raise MyException("快樂駕駛，平安返家!") # 拋出 MyException 型別例外 
+        
+def convertTuple(tup):  # tuple 轉換為字串
+    str =  ''.join(tup) 
+    return str        
+ 
+for speed in (60,100,150):      
+    try:
+        CheckSpeed(speed) #檢查速度
+    except MyException as e: #接收 MyException 的例外
+        err= convertTuple(e.args) # tuple 轉換為串字
+        print("目前時速：{}，{}" .format(speed,err))    
+    except Exception as e: #接收 Exception 的例外
+        print("現在速度：{}，{}" .format(speed,e))   
+```
+## Traceback.py
+```
+import traceback
+
+def CheckSpeed(speed): #檢查速度
+    if speed < 70:
+        raise Exception("速度太慢了!") # 拋出 Exception 型別例外
+    if speed > 110:
+        raise Exception("已經超速了!") # 拋出 Exception 型別例外 
+
+for speed in (60,100,150):       
+    try:
+        CheckSpeed(speed) #檢查速度
+    except Exception as e: #接收 Exception的例外
+        with open("err.txt","a") as f:
+            f.write(traceback.format_exc()) #寫入例外過程
+        print("錯誤資訊寫入完成!")
+    else:
+        print("目前時速：{}" .format(speed))  
+```
+## try1.py
+```
+try:
+    print(n)
+except:
+    print("變數 n 不存在!")  
+```
+## try2.py
+```
+n=2
+try:
+    n+=1
+except:
+    print("變數 n 不存在!")
+else:
+    print("n=",n) # n=3
+```
+## try3.py
+```
+try:
+    print(n)
+except Exception as e:
+    print(e) 
+```
+## try4.py
+```
+try:
+    print(n)
+except:
+    print("變數 n 不存在!")
+finally:
+    print("一定會執行的程式區塊")    
+```
+## tryadd.py
+```
+try:
+    a=int(input("請輸入第一個整數："))
+    b=int(input("請輸入第二個整數："))
+    r = a + b
+    print("r=",r)
+except:
+    print("發生輸入非數值的錯誤!") 
+```
+## trymod.py
+```
+try:
+    a=int(input("請輸入第一個整數："))
+    b=int(input("請輸入第二個整數："))
+    r = a % b    
+except ValueError:
+    print("發生輸入非數值的錯誤!")   
+except Exception as e:
+    print("發生",e,"的錯誤，包括分母為 0 的錯誤!")
+else:
+    print("r=",r)
+finally:
+    print("一定會執行的程式區塊")    
+```
+## trymod2.py
+```
+try:
+    a=int(input("請輸入第一個整數："))
+    b=int(input("請輸入第二個整數："))
+    r = a % b    
+except(ValueError,ZeroDivisionError):
+    print("發生輸入非數值的錯誤或分母為 0 的錯誤!")   
+else:
+    print("r=",r)
+```
+## trymod3.py
+```
+try:
+    a=int(input("請輸入第一個整數："))
+    b=int(input("請輸入第二個整數："))
+    r = a % b    
+except(ValueError,ZeroDivisionError) as e:
+    print("發生{} 0 的錯誤!" .format(e))   
+else:
+    print("r=",r)
+```
 
 
 
