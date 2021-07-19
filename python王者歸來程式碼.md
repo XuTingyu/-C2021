@@ -1494,7 +1494,137 @@ text.pack()
 text.config(state=tk.DISABLED)
 win.mainloop()
 ```
+# ch10
+---
+## bracket.py
+```
+import re
+pat =r'[0-9+]+'
+s="Amy was 18 year old,she likes Python and C++."
+m = re.findall(pat,s)
+print(m) # ['18', '++']
+```
+## compile.py
+```
+import re
+reobj = re.compile(r'[a-z]+')
+m = reobj.findall('3tem12po')
+print(m) # ['tem', 'po']
+```
+## dotall.py
+```
+import re
+pat =r'.*'
+s="Do your best,\nGo Go Go!"
+m = re.search(pat,s)
+print(m.group()) # Do your best,
+m2 = re.search(r'.*',s,re.DOTALL)
+print(m2.group()) # Do your best,\nGo Go Go!
+```
+## findall.py
+```
+import re
+pat = re.compile('[a-z]+')
+m = pat.findall('tem12po')
+print(m)  # ['tem', 'po']
+```
+## ignore.py
+```
+import re
+pat =r'PYTHON|ANDROID'
+s="I like Python and Android!"
+m = re.findall(pat,s,re.I)
+print(m) #['Python', 'Android']
+```
+## match.py
+```
+import re
+pat = re.compile(r'[a-z]+')
 
+m = pat.match('tem12po')
+print(m) # <re.Match object; span=(0, 3), match='tem'>
+if not m==None:
+    print(m.group()) #tem
+    print(m.start()) #0
+    print(m.end())   #3
+    print(m.span())  #(0,3)
+```
+## not1.py
+```
+import re
+pat =r'[^a-z. ]+'
+s="John was 18 year old."
+m = re.findall(pat,s)
+print(m) #['J', '18']
+```
+## not2.py
+```
+import re
+pat =r'^\d+'
+s="2020 is coming soon"
+m = re.findall(pat,s)
+print(m) #['2020']
+m2 = re.findall(r'\w+$',s)
+print(m2) #['soon']
+```
+## phone_check.py
+```
+def isTaiwanPhone(str):
+    if len(str) != 11:       # 如果長度不是11
+        return False         # 傳回非手機號碼格式
+    #檢查11個字元是否符合手機號碼格式
+    for i in range(0, 11):    
+        if i==4:
+            if str[4] != '-':        # 如果第5個字元不是'-'字元
+                return False         # 傳回非手機號碼格式
+        else: # 如果前4個字或最後6個字出現非數字字元
+            if str[i].isdecimal() == False:
+                return False     # 傳回非手機號碼格式
+    return True                  # 傳回是正確手機號碼格式        
+
+print("0937-123456 是台灣手機號碼：", isTaiwanPhone('0937-123456'))
+print("02-12345678 是台灣手機號碼：", isTaiwanPhone('02-12345678'))
+```
+## phone1.py
+```
+import re
+numStr="tel:04-12345678"
+pat = r'(\d{2})-(\d{8})'
+
+phone = re.search(pat,numStr)
+if not phone==None:
+    print(phone.group())  #04-12345678
+    print(phone.group(0)) #04-12345678
+    print(phone.group(1)) #04
+    print(phone.group(2)) #12345678   
+```
+## phone2.py
+```
+import re
+numStr="tel:(04)12345678"
+pat = r'(\(\d{2}\))(\d{8})'
+
+phone = re.search(pat,numStr)
+if not phone==None:
+    print(phone.group())  #(04)12345678
+    print(phone.group(1)) #(04)
+    print(phone.group(2)) #12345678
+```
+## phone3.py
+```
+import re
+phoneList=["(04)12345678","(04)-12345678"]
+pat = r'(\(\d{2}\))-?(\d{8})'
+
+for phone in phoneList:
+    phoneNum = re.search(pat,phone)
+    if not phoneNum==None:
+        print(phoneNum.group())
+```
+## phone4.py
+```
+
+```
 
 
 
