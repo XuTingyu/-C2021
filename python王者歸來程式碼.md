@@ -401,65 +401,244 @@ with open('file1.txt','r') as f:
 ```
 ## fileread4.py
 ```
+with open('file2.txt','r',encoding ='UTF-8') as f:
+    print(f.readline())  # 123中文字\n
+    print(f.readline(3)) # abc
 ```
 ## fileread5.py
 ```
+with open('file1.txt','r') as f:
+    content=f.readlines() 
+    print(type(content))   # <class 'list'>
+    print(content)  
 ```
 ## fileread6.py
 ```
+with open('file2.txt','r',encoding ='UTF-8') as f:
+    doc=f.readlines() 
+    print(doc)      
+    
+with open('file2.txt','r',encoding ='UTF-8') as f:
+    str1=f.read(5)
+    print(str1)  # 123中
 ```
 ## fileread7.py
 ```
+with open('file2.txt','r',encoding ='UTF-8-sig') as f:
+    doc=f.readlines() 
+    print(doc)      
+    
+with open('file2.txt','r',encoding ='UTF-8-sig') as f:
+    str1=f.read(5)
+    print(str1)  # 123中文
 ```
 ## filereadUTF-8.py
 ```
+f=open('file2.txt','r',encoding ='cp950')
+for line in f:
+    print(line,end="")
+f.close()
 ```
 ## fileseek.py
 ```
+# file.bin 內容
+'''Hello Python
+中文字測試
+Welcome
+'''
+
+f=open('file.bin','rb')
+print("目前文件索引位置：",f.tell()) #0
+f.seek(6) #移到索引第 6 (第7個字元)位置
+str1=f.read(7) #讀取 7 個字元
+print(str1)  # b'Python\n'
+print("目前文件索引位置：",f.tell()) #13
+
+f.seek(0) #回文件最前端
+print("目前文件索引位置：",f.tell()) #0
+str2=f.read(5) #讀取 5 個字元
+print(str2)  # b'Hello'
+
+f.seek(-8,2) #移至最尾端，向前取 8 個字元
+str3=f.read()
+print(str3)  # b'Welcome\n'
+
+f.close()
 ```
 ## filewrite1.py
 ```
+content='''Hello Python
+中文字測試
+Welcome
+'''
+
+f=open('file1.txt','w')
+f.write(content)
+f.close()
 ```
 ## glob.py
 ```
+import glob
+files = glob.glob("glob.py") + glob.glob("os*.py") + glob.glob("*.txt") 
+for file in files:
+    print(file)
 ```
 ## newfile.py
 ```
+import os,shutil
+cur_path=os.path.dirname(__file__) # 取得目前路徑
+destfile= cur_path + "\\" + "newfile.py"
+shutil.copy("shutil.py",destfile )  # 檔案複製
+shutil.copyfile("shutil.py","D:\\new.py" )  # 檔案複製
 ```
 ## osdirname.py
 ```
+import os
+cur_path=os.path.dirname(__file__) # 取得目前目錄路徑
+print("現在目錄路徑："+cur_path)
 ```
 ## osexists.py
 ```
+import os
+filename=os.path.abspath("osexists.py")
+if os.path.exists(filename): #檢查檔案是否存在
+    print("完整路徑名稱：" + filename)
+    print("檔案大小：" , os.path.getsize(filename))
 ```
 ## osgetcwd.py
 ```
+import os
+
+print(os.getcwd())   
+ 
 ```
 ## osmkdir.py
 ```
+import os
+dir = "myDir"
+if not os.path.exists(dir):
+    os.mkdir(dir)
+else:
+    print(dir + "已經存在!")   
+ 
 ```
 ## ospath.py
 ```
+import os
+filename=os.path.abspath("ospath.py")
+if os.path.exists(filename):   
+    basename=os.path.basename(filename)
+    print("最後的檔案或路徑名稱：" + basename)
+    
+    dirname=os.path.dirname(filename)
+    print("目前檔案目錄路徑：" + dirname) 
+    
+    print("是否為目錄：",os.path.isdir(filename))
+    
+    fullpath,fname=os.path.split(filename)
+    print("目錄路徑：" + fullpath)
+    print("檔名：" + fname)
+    
+    Drive,fpath=os.path.splitdrive(filename)
+    print("磁碟機：" + Drive)
+    print("路徑名稱：" + fpath)   
+    
+    fullpath = os.path.join(fullpath + "\\" + fname)
+    print("組合路徑= " + fullpath)
 ```
 ## osremove.py
 ```
+import os
+file = "myFile.txt"
+if os.path.exists(file):
+    os.remove(file)
+else:
+    print(file + "檔案未建立!")   
+ 
 ```
 ## osrmdir.py
 ```
+import os
+dir = "myDir"
+if os.path.exists(dir):
+    os.rmdir(dir)
+else:
+    print(dir + "目錄未建立!")  
+ 
 ```
 ## ossystem.py
 ```
+import os
+cur_path=os.getcwd() # 取得目前路徑  
+os.system("cls")  # 清除螢幕
+os.system("mkdir dir2")  # 建立 dir2 目錄
+os.system("copy ossystem.py dir2\copyfile.py") # 複製檔案 
+file=cur_path + "\dir2\copyfile.py" 
+os.system("notepad " + file)  # 以記事本開啟 copyfile.py 檔
 ```
 ## password.py
 ```
+#import ast
+import json
+data = dict()
+with open('password.txt','r', encoding = 'UTF-8-sig') as f:
+   filedata = f.read()
+   print(filedata)
+#   filedata = filedata.replace("\'", "\"")
+#   data = ast.literal_eval(filedata)
+   data = json.loads(filedata)
+print(type(data),data)
 ```
 ## rmtree.py
 ```
+import shutil
+shutil.rmtree("D:\\newoswalk" )  # 刪除目錄
 ```
 ## shutil.py
 ```
+import os,shutil
+cur_path=os.path.dirname(__file__) # 取得目前路徑
+destfile= cur_path + "\\" + "newfile.py"
+shutil.copy("shutil.py",destfile )  # 檔案複製
+shutil.copyfile("shutil.py","D:\\new.py" )  # 檔案複製
 ```
-ch07
+# ch07
+---
+## __pycache__
+```
+calculate.cpython-37.pyc
+```
+## projectArea
+---
+### projectArea
+#### spyproject
+#### areapackage
+```
+from areapackage.myClass import Triangle
+
+triangle = Triangle(5,6) #建立 triangle 物件
+print("矩形面積=",triangle.area())    #30
+print("三角形面積=",triangle.area2()) #15
+```
+---
+#### areapackage
+##### __init__.py
+```
+# -*- coding: utf-8 -*-
+```
+##### myClass.py
+```
+class Rectangle():       #定義父類別  
+    def __init__(self, width,height):
+        self.width = width    #定義共用屬性   
+        self.height = height  #定義共用屬性
+    def area(self):           #定義共用方法 
+        return self.width * self.height
+        
+class Triangle(Rectangle): #定義子類別  
+    def area2(self):       #定義子類別的共用方法 
+        return (self.width * self.height)/2
+```
 ---
 
 
