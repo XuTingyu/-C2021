@@ -1141,10 +1141,359 @@ except(ValueError,ZeroDivisionError) as e:
 else:
     print("r=",r)
 ```
+# ch09
+---
+## eword_tkinter.py
+```
+def First():  # 首頁
+    global page
+    page=0
+    disp_data()
+ 
+def Prev():  #上一頁
+    global page
+    if page>0:
+        page -=1
+        disp_data()     
+       
+def Next(): #下一頁
+    global page
+    if page<pagesize:
+        page +=1
+        disp_data()
+    
+def Bottom(): #最後頁
+    global page
+    page=pagesize    
+    disp_data() 
 
+def disp_data():
+    if datas != None:          
+        sep1=tk.Label(frameShow, text="\t",fg="white",width="20",font=("新細明體",10))       
+        label1 = tk.Label(frameShow, text="單字".ljust(30),fg="white",bg="black",width=30,font=("新細明體",10))
+        label2 = tk.Label(frameShow, text="中文翻譯".ljust(175),fg="white",bg="black",width=80,font=("新細明體",10))
+        sep1.grid(row=0,column=0,sticky="w")  # 加第一列空白，讓版面美觀些   
+        label1.grid(row=1,column=0,sticky="w")
+        label2.grid(row=1,column=1,sticky="w")
+        
+        n=0   # 資料從索引 0 開始
+        row=2 # 資料從第二列開始
+        start=page * pagesize + row
+        for eword,cword in datas.items():
+            # 顯示目前 page頁的資料
+            if n >= start and n < start + pagesize: 
+                label1 = tk.Label(frameShow, text="\t"+'{0:30}'.format(eword),fg="blue",font=("新細明體",10))
+                label2 = tk.Label(frameShow, text='{0:30}'.format(cword),fg="blue",font=("新細明體",10))
+                label1.grid(row=row,column=0,sticky="w")
+                label2.grid(row=row,column=1,sticky="w")
+                row+=1
+            n+=1
 
+### 主程式從這裡開始 ###    
 
+import tkinter as tk
+import math
+win=tk.Tk()
+win.geometry("500x300")
+win.title("英文單字王")
 
+page,pagesize=0,10
+datas=dict()
+
+with open('eword.txt','r', encoding = 'UTF-8-sig') as f:
+    for line in f:
+        eword,cword = line.rstrip('\n').split(',')
+        datas[eword]=cword
+print("轉換完畢!") 
+
+datasize=len(datas) #資料筆數
+totpage=math.ceil(datasize/pagesize) #總頁數
+
+# 單字顯示區
+frameShow = tk.Frame(win)  
+frameShow.pack()
+labelwords = tk.Label(win, text="")
+labelwords.pack() 
+
+frameCommand = tk.Frame(win)  # 翻頁按鈕容器
+frameCommand.pack()  
+btnFirst = tk.Button(frameCommand, text="第一頁", width=8,command=First)
+btnPrev = tk.Button(frameCommand, text="上一頁", width=8,command=Prev)
+btnNext = tk.Button(frameCommand, text="下一頁", width=8,command=Next)
+btnBottom = tk.Button(frameCommand, text="最末頁", width=8,command=Bottom)
+btnFirst.grid(row=0, column=0, padx=5, pady=5)
+btnPrev.grid(row=0, column=1, padx=5, pady=5)
+btnNext.grid(row=0, column=2, padx=5, pady=5)        
+btnBottom.grid(row=0, column=3, padx=5, pady=5)   
+
+First()
+win.mainloop()
+```
+## tk.py
+```
+import tkinter as tk
+win = tk.Tk()
+win.geometry("450x100")
+win.title("這是主視窗")
+win.mainloop()
+```
+## tkbutton1.py
+```
+def click1():
+    textvar.set("我已經被按過了！")
+
+import tkinter as tk
+
+win = tk.Tk()
+textvar = tk.StringVar()
+button1 = tk.Button(win, textvariable=textvar, command=click1)
+textvar.set("按鈕")
+button1.pack()
+win.mainloop()
+```
+## tkbutton2.py
+```
+def clickme():
+    global count
+    count += 1
+    labeltext.set("你按我 " + str(count) + " 次了！")
+    if(btntext.get() == "按我！"):
+        btntext.set("回復原來文字！")
+    else:
+        btntext.set("按我！")
+
+import tkinter as tk
+
+win = tk.Tk()
+labeltext = tk.StringVar()
+btntext = tk.StringVar()
+count = 0
+label1 = tk.Label(win, fg="red", textvariable=labeltext)
+labeltext.set("歡迎光臨Tkinter！")
+label1.pack()
+button1 = tk.Button(win, textvariable=btntext, command=clickme)
+btntext.set("按我！")
+button1.pack()
+win.mainloop()
+```
+## tkcheckbox1.py
+```
+def choose():
+    str = "你喜歡的球類運動："
+    for i in range(0, len(choice)):
+        if(choice[i].get() == 1):
+            str = str + ball[i] + " "
+    msg.set(str)
+
+import tkinter as tk
+
+win = tk.Tk()
+choice = []
+ball = ["足球", "籃球", "棒球"]
+msg = tk.StringVar()
+label = tk.Label(win, text="選擇喜歡的球類運動：")
+label.pack()
+for i in range(0, len(ball)):
+    tem = tk.IntVar()
+    choice.append(tem)
+    item = tk.Checkbutton(win, text=ball[i], variable=choice[i], command=choose)
+    item.pack()
+lblmsg = tk.Label(win, fg="red", textvariable=msg)
+lblmsg.pack()
+win.mainloop()
+```
+## tkframe1.py
+```
+import tkinter as tk
+win = tk.Tk()
+frame1 = tk.Frame(win)
+frame1.pack()
+label1=tk.Label(frame1, text="標籤一：")
+entry1 = tk.Entry(frame1)
+label1.grid(row=0, column=0)
+entry1.grid(row=0, column=1)
+frame2 = tk.Frame(win)
+frame2.pack()
+button1 = tk.Button(frame2, text="確定")
+button2 = tk.Button(frame2, text="取消")
+button1.grid(row=0, column=0)
+button2.grid(row=0, column=1)
+win.mainloop()
+```
+## tkgrid1.py
+```
+import tkinter as tk
+win = tk.Tk()
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.grid(row=0, column=0, padx=5, pady=5)
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.grid(row=0, column=1, padx=5, pady=5)
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.grid(row=0, column=2, padx=5, pady=5)
+button4 = tk.Button(win, text="這是按鈕四", width=20)
+button4.grid(row=1, column=0, padx=5, pady=5)
+button5 = tk.Button(win, text="這是按鈕五", width=20)
+button5.grid(row=1, column=1, padx=5, pady=5)
+button6 = tk.Button(win, text="這是按鈕六", width=20)
+button6.grid(row=1, column=2, padx=5, pady=5)
+win.mainloop()
+```
+## tkgrid2.py
+```
+import tkinter as tk
+win = tk.Tk()
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.grid(row=0, column=0, padx=5, pady=5)
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.grid(row=0, column=1, padx=5, pady=5, columnspan=2,sticky="e")
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.grid(row=0, column=3, padx=5, pady=5)
+button4 = tk.Button(win, text="這是按鈕四", width=20)
+button4.grid(row=1, column=0, padx=5, pady=5)
+button5 = tk.Button(win, text="這是按鈕五", width=20)
+button5.grid(row=1, column=1, padx=5, pady=5)
+button6 = tk.Button(win, text="這是按鈕六", width=20)
+button6.grid(row=1, column=2, padx=5, pady=5)
+win.mainloop()
+```
+## tklabel1.py
+```
+import tkinter as tk
+win = tk.Tk()
+label1 = tk.Label(win, text="這是標籤元件！", fg="red", bg="yellow", font=("新細明體", 12), padx=20, pady=10)
+label1.pack()
+win.mainloop()
+```
+## tkpack1.py
+```
+import tkinter as tk
+win = tk.Tk()
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.pack()
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.pack()
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.pack()
+button4 = tk.Button(win, text="這是按鈕四", width=20)
+button4.pack()
+win.mainloop()
+```
+## tkpack2.py
+```
+import tkinter as tk
+win = tk.Tk()
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.pack(padx=20, pady=5)
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.pack(padx=20, pady=5)
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.pack(padx=20, pady=5)
+button4 = tk.Button(win, text="這是按鈕四", width=20)
+button4.pack(padx=20, pady=5)
+win.mainloop()
+```
+## tkpack3.py
+```
+import tkinter as tk
+win = tk.Tk()
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.pack(padx=20, pady=5, side="right")
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.pack(padx=20, pady=5, side="left")
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.pack(padx=20, pady=5, side="bottom")
+button4 = tk.Button(win, text="這是按鈕四", width=20)
+button4.pack(padx=20, pady=5)
+win.mainloop()
+```
+## tkpassword.py
+```
+def checkPW():
+    if(pw.get() == "1234"):
+        msg.set("密碼正確，歡迎登入！")
+    else:
+        msg.set("密碼錯誤，請修正密碼！")
+
+import tkinter as tk
+
+win = tk.Tk()
+pw = tk.StringVar()
+msg = tk.StringVar()
+label = tk.Label(win, text="請輸入密碼：")
+label.pack()
+entry = tk.Entry(win, textvariable=pw)
+entry.pack()
+button = tk.Button(win, text="登入", command=checkPW)
+button.pack()
+lblmsg = tk.Label(win, fg="red", textvariable=msg)
+lblmsg.pack()
+win.mainloop()
+```
+## tkplace1.py
+```
+import tkinter as tk
+win = tk.Tk()
+win.geometry("300x100")
+label1=tk.Label(win, text="輸入成績：")
+label1.place(x=20, y=20)
+score = tk.StringVar()
+entryUrl = tk.Entry(win, textvariable=score)
+entryUrl.place(x=90, y=20)
+btnDown = tk.Button(win, text="計算成績")
+btnDown.place(x=80, y=50)
+win.mainloop()
+```
+## tkplace2.py
+```
+import tkinter as tk
+win = tk.Tk()
+win.geometry("400x150")
+button1 = tk.Button(win, text="這是按鈕一", width=20)
+button1.place(relx=0.5, rely=0.5, anchor="center")
+button2 = tk.Button(win, text="這是按鈕二", width=20)
+button2.place(relx=0.1, rely=0.1, anchor="nw")
+button3 = tk.Button(win, text="這是按鈕三", width=20)
+button3.place(relx=0.1, rely=0.8, anchor="w")
+win.mainloop()
+```
+## tkradio1.py
+```
+def choose():
+    msg.set("你最喜歡的球類運動：" + choice.get())
+
+import tkinter as tk
+
+win = tk.Tk()
+choice = tk.StringVar()
+msg = tk.StringVar()
+label = tk.Label(win, text="選擇最喜歡的球類運動：")
+label.pack()
+item1 = tk.Radiobutton(win, text="足球", value="足球", variable=choice, command=choose)
+item1.pack()
+item2 = tk.Radiobutton(win, text="籃球", value="籃球", variable=choice, command=choose)
+item2.pack()
+item3 = tk.Radiobutton(win, text="棒球", value="棒球", variable=choice, command=choose)
+item3.pack()
+lblmsg = tk.Label(win, fg="red", textvariable=msg)
+lblmsg.pack()
+item1.select()
+choose()
+win.mainloop()
+```
+## tktext1.py
+```
+import tkinter as tk
+win = tk.Tk()
+text = tk.Text(win)
+text.insert(tk.INSERT, "Tkinter 套件是圖形使用者介面，\n")
+text.insert(tk.INSERT, "雖然功能略為陽春，\n")
+text.insert(tk.INSERT, "但已足夠一般應用程式使用，\n")
+text.insert(tk.INSERT, "而且是內含於 Python 系統中，\n")
+text.insert(tk.END, "不需另外安裝即可使用。")
+text.pack()
+text.config(state=tk.DISABLED)
+win.mainloop()
+```
 
 
 
