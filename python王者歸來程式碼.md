@@ -3330,6 +3330,183 @@ scores = {'國文':{'王小明':65,'李小美':90,'陳大同':81,'林小玉':79}
 df = pd.DataFrame(scores)
 df.to_csv('scores3.csv', encoding='utf-8-sig')
 ```
+# ch15
+---
+## get1.py
+```
+from flask import Flask
+from flask import request
+app = Flask(__name__)
+
+from flask import render_template
+@app.route('/get1', methods=['GET'])
+def get1():
+    name = request.args.get('name')
+    city = request.args.get('city')
+    return render_template('get1.html', **locals())
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## hello.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/hello')
+def hello():
+    return '歡迎來到 Flask!'
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## hello2.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/hello/<name>')
+def hello(name):
+    return '{}，歡迎來到 Flask!'.format(name)
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## index.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return '這是本網站首頁!'
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## post1.py
+```
+from flask import Flask
+from flask import request
+app = Flask(__name__)
+
+from flask import render_template
+@app.route('/post1')
+def post1():
+    return render_template('post1.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    username = request.values['username']
+    password = request.values['password']
+    if username=='david' and password=='1234':
+        return '歡迎光臨本網站！'
+    else:
+        return '帳號或密碼錯誤！'
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## show.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+from flask import render_template
+@app.route('/show')
+def show():
+    person1={"name":"Amy","phone":"049-1234567","age":20}
+    person2={"name":"Jack","phone":"02-4455666","age":25}
+    person3={"name":"Nacy","phone":"04-9876543","age":17}
+    persons=[person1,person2,person3]
+    return render_template('show.html', **locals())
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## template1.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+from flask import render_template
+@app.route('/hello')
+def hello():
+    return render_template('hello.html')
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## template2.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+from flask import render_template
+from datetime import datetime
+@app.route('/hello/<string:name>')
+def hello(name):
+    now = datetime.now()
+    return render_template('hello2.html', **locals())
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## template3.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+from flask import render_template
+from datetime import datetime
+@app.route('/hello/<string:name>')
+def hello(name):
+    now = datetime.now()
+    return render_template('hello3.html', **locals())
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## test.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return '這是本網站首頁!'
+
+if __name__ == '__main__':
+    app.run()
+
+```
+## variable.py
+```
+from flask import Flask
+app = Flask(__name__)
+
+from flask import render_template
+@app.route('/variable')
+def variable():
+    student = {'學號':'874523', '姓名':'張三', '性別':'男'}
+    fruit = ['蘋果', '香蕉', '芭樂', '百香果']
+    return render_template('variable.html', **locals())
+
+if __name__ == '__main__':
+    app.run()
+
+```
 
 
 
